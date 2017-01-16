@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leo.dao.PrivilegeDao">
+    <insert id="batchInsert">
+        insert into t_sys_privilege
+        (master,masterValue,access,accessValue,operation,createUser,createDt,updateUser,updateDt) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.master},#{item.masterValue},#{item.access},#{item.accessValue},#{item.operation},#{item.createUser},#{item.createDt},#{item.updateUser},#{item.updateDt})
+        </foreach>
+    </insert>
+    <delete id="deleteByMasterAndValue">
+        delete from t_sys_privilege where master=#{master} and masterValue=#{masterValue}
+    </delete>
+
+    <select id="getMenuAndButtonList" resultType="MenuAndButton">
+        select a.* from (select m.id,m.name,m.iconCls,m.pid,'menu' as type, mp.id as privilegeId from
+        t_sys_menu m left join t_sys_privilege mp on mp.access='menu' and mp.accessValue = m.id and mp.master=#{master} and mp.masterValue=#{masterValue}
+        union
+        select b.id,b.name,b.iconCls,menuId as pid,'button' as type, mp.id as privilegeId from
+        t_sys_button b left join t_sys_privilege mp on mp.access='button' and mp.accessValue = b.id and mp.master=#{master} and mp.masterValue=#{masterValue}) a
+        order by a.id
+    </select>
+    <select id="getRoleResourceOwnerPair" resultType="com.leo.bean.ResourceOwnerPair">
+        SELECT
+            res.name,res.link,pp.rolecode as owner
+        FROM
+            t_sys_resource res
+        LEFT JOIN (
+            SELECT
+                r.code as rolecode,
+                p.accessValue
+            FROM
+                t_sys_role r,
+                t_sys_privilege p
+            WHERE
+                p.`master` = 'role'
+            AND p.masterValue = r.id
+            AND (p.access = '0' OR p.access = '1')
+        )  pp ON res.id = pp.accessValue
+    </select>
+    <select id="getResource" resultType="SysResource">
+        SELECT
+            CASE
+              when p.id is not NULL then "true"  end as checked,
+            r.*
+        FROM
+            t_sys_resource r
+        LEFT JOIN t_sys_privilege p ON p.accessValue = r.id
+        AND p.`master` = #{master}
+        AND p.masterValue = #{masterValue} order by r.orde
+    </select>
+    <select id="getUserResourceList" resultType="com.leo.entity.SysResource">
+        SELECT
+            DISTINCT re.*
+        FROM
+            t_sys_role r,
+            t_sys_user_role ur,
+            t_sys_resource re,
+            t_sys_privilege p
+        WHERE
+            ur.userid = #{userId}
+        AND r.id = ur.roleId
+        AND (
+            ((p.`master` = 'role'
+            AND p.masterValue = r.id) or (p.`master`='user' and p.masterValue=#{userId}))
+            and p.accessValue = re.id
+        )
+    </select>
+    <select id="getUserResourceOwnerPair" resultType="com.leo.bean.ResourceOwnerPair">
+        SELECT
+            res.name,res.link,pp.userId as owner
+        FROM
+            t_sys_resource res
+        LEFT JOIN (
+            SELECT
+                u.id as userId,
+                p.accessValue
+            FROM
+                t_sys_user u,
+                t_sys_privilege p
+            WHERE
+                p.`master` = 'user'
+            AND p.masterValue = u.id
+            AND (p.access = '0' OR p.access = '1')
+        )  pp ON res.id = pp.accessValue
+    </select>
+
+
+</mapper>

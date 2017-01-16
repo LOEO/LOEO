@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd
+        ">
+    <debug/>
+    <http>
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+            <hsts disabled="true"/>
+        </headers>
+        <!--自定义filter来处理权限-->
+        <custom-filter ref="filterSecurityInterceptor"  after="FILTER_SECURITY_INTERCEPTOR" />
+        <intercept-url pattern="/rs/**" access="permitAll"/>
+        <intercept-url pattern="/pages/login.jsp" access="permitAll"/>
+        <intercept-url pattern="/**" access="hasRole('USER')"/>
+        <form-login login-page="/pages/login.jsp"
+                    default-target-url="/index.do"
+                    always-use-default-target="true"
+                    authentication-failure-url="/pages/login.jsp?e"
+        />
+        <csrf disabled="true"/>
+        <access-denied-handler error-page="/pages/error.jsp"/>
+        <session-management invalid-session-url="/pages/timeout.jsp">
+            <concurrency-control expired-url="/pages/timeout.jsp" />
+        </session-management>
+        <!--会加入LogoutFilter到FilterChain中-->
+        <logout delete-cookies="true" logout-success-url="/pages/login.jsp" invalidate-session="true" />
+        <!--
+            配置rememberme 会加入RememberMeAuthenticationFilter到FilterChain中
+            登陆成功会生成一个序列号存入persistent_logins表 和cookie中
+            下次访问会验证序列号对应的数据如果成功就自动登陆
+        -->
+        <remember-me data-source-ref="dataSource"
+                 token-validity-seconds="1209600"
+                 remember-me-parameter="remember-me"
+        />
+    </http>
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider  user-service-ref="userDetailService">
+           <!-- <password-encoder hash="md5">
+                <salt-source user-property="username"></salt-source>
+            </password-encoder>-->
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="filterSecurityInterceptor"
+                class="com.leo.common.security.CustomFilterSecurityInterceptor" autowire="byType">
+        <beans:property name="securityMetadataSource" ref="customSecurityMetadataSource" />
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="accessDecisionManager" ref="customAccessDecisionManager"/>
+    </beans:bean>
+
+    <beans:bean id="customSecurityMetadataSource" class="com.leo.common.security.CustomSecurityMetadataSource" init-method="initResources"/>
+
+    <beans:bean id="customAccessDecisionManager" class="com.leo.common.security.CustomAccessDecisionManager"/>
+
+    <beans:bean id="filterInvocationSecurityMetadataSource"
+                class="com.leo.common.security.JdbcFilterInvocationDefinitionSourceFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="resourceQuery" value="
+            SELECT
+                m.link,r.`code`
+            FROM
+                t_sys_role r,
+                t_sys_menu m,
+                t_sys_privilege p
+            WHERE
+                r.id = p.masterValue
+            AND p.accessValue = m.id
+            AND p.access = 'menu'
+            AND p.`master` = 'role' and link is not null
+        "/>
+    </beans:bean>
+
+    <beans:bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl"/>
+</beans:beans>
