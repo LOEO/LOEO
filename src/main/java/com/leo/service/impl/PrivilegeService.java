@@ -10,6 +10,7 @@ import com.leo.entity.SysPrivilege;
 import com.leo.entity.SysResource;
 import com.leo.service.AbsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
  * Created by LT on 2016/09/28 21:05
  */
 @Service
+@Transactional
 public class PrivilegeService extends AbsService<SysPrivilege> {
     private PrivilegeDao privilegeDao;
     private ResourceService resourceService;

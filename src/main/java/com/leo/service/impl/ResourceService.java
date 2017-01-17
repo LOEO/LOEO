@@ -6,6 +6,7 @@ import com.leo.dao.ResourceDao;
 import com.leo.entity.SysResource;
 import com.leo.service.AbsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by LT on 2016/11/05 11:38
  */
 @Service
+@Transactional
 public class ResourceService extends AbsService<SysResource> {
     private ResourceDao resourceDao;
 
