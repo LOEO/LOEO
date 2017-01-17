@@ -143,7 +143,7 @@
             validType: ['minLength[6]', 'equals["#password","两次输入密码不一致！"]']
         });
 
-        var userForm = LEO.initForm("userForm", "${ctx}/user/save.do", function (result) {
+        var userForm = LEO.initForm("userForm", function (result) {
                     if (result.state === LEO.SUCCESS) {
                         $('#userWin').window('close');
                         userGrid.datagrid("reload");
@@ -167,14 +167,15 @@
             LEO.openFormWin("userWin", {
                 title: "新增用户"
             }, function () {
-                userForm.form("clear");
+                userForm.form("clear").form({url:"${ctx}/user/add.do"});
+                $("#username").textbox({editable: true});
                 $("#enable").combobox("setValue", "1");
             });
         });
         $("#editBtn").on("click", function () {
             var row = userGrid.datagrid("getSelected");
             if (row) {
-                userForm.form("load", row);
+                userForm.form("load", row).form({url:"${ctx}/user/edit.do"});
                 $("#username").textbox({editable: false});
                 $("#password").textbox("setValue", "");
                 $("#password1").textbox("setValue", "");

@@ -3,6 +3,7 @@ package com.leo.service.impl;
 import com.leo.bean.MenuAndButton;
 import com.leo.bean.ResourceOwnerPair;
 import com.leo.bean.SysResourceTreeNode;
+import com.leo.common.security.CustomSecurityMetadataSource;
 import com.leo.common.security.SpringSecurityUtils;
 import com.leo.dao.BaseDao;
 import com.leo.dao.PrivilegeDao;
@@ -26,6 +27,10 @@ public class PrivilegeService extends AbsService<SysPrivilege> {
     private PrivilegeDao privilegeDao;
     private ResourceService resourceService;
 
+
+
+    private CustomSecurityMetadataSource customSecurityMetadataSource;
+
     @Override
     public BaseDao<SysPrivilege> getBaseDao() {
         return this.privilegeDao;
@@ -36,6 +41,7 @@ public class PrivilegeService extends AbsService<SysPrivilege> {
         if (list.size() > 0) {
             privilegeDao.batchInsert(convert2Privileges(list,master,masterValue));
         }
+        customSecurityMetadataSource.initResources();
     }
 
     public List<MenuAndButton> getMenuAndButtonList(String master,String masterValue) {
@@ -89,5 +95,10 @@ public class PrivilegeService extends AbsService<SysPrivilege> {
     @Resource
     public void setResourceService(ResourceService resourceService) {
         this.resourceService = resourceService;
+    }
+
+    @Resource
+    public void setCustomSecurityMetadataSource(CustomSecurityMetadataSource customSecurityMetadataSource) {
+        this.customSecurityMetadataSource = customSecurityMetadataSource;
     }
 }

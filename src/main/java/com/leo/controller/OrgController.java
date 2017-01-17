@@ -21,7 +21,7 @@ public class OrgController extends BaseController{
 
     @RequestMapping("page")
     public String page() {
-        return "system/org/org";
+        return "system/org";
     }
     @RequestMapping("save")
     @ResponseBody

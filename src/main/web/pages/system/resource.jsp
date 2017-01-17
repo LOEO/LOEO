@@ -120,7 +120,7 @@
             });
         });
 
-        var resourceForm = LEO.initForm("resourceForm", "${ctx}/resource/save.do", function (result) {
+        var resourceForm = LEO.initForm("resourceForm", function (result) {
             if (result.state === LEO.SUCCESS) {
                 $('#resourceWin').window('close');
                 resourceGrid.treegrid("reload");
@@ -134,7 +134,7 @@
             data: [{id: '0', text: '目录'}, {id: '1', text: '菜单'}, {id: '2', text: '按钮'}],
             onSelect:function(selected) {
                 debugger;
-                if(selected.id==="1"){
+                if(selected.id!=="0"){
                     $("#resourceLink").textbox({
                         required:true
                     }).parent().show().find("#resourceLink + span").width(187).find("input").width(187);
@@ -147,30 +147,35 @@
         });
         $("#addBtn").on("click", function () {
             var row = resourceGrid.datagrid("getSelected");
-            if(row.type==="2"){
-                LEO.messager("按钮下不能添加子节点！");
-                return;
-            }
-            LEO.openFormWin("resourceWin", {
-                title: "新增资源"
-            }, function () {
-                debugger;
-                $("#resourceType").combobox("clear");
-                resourceForm.form("clear");
-                $("#resourceLink").parent().hide();
-                var row = resourceGrid.treegrid("getSelected");
-                if (row) {
-                    $("#resourcePid").val(row.id);
-                } else {
-                    $("#resourcePid").val(0);
+            if(row){
+                if(row.type==="2"){
+                    LEO.messager("按钮下不能添加子节点！");
+                    return;
                 }
-                $("#enable").combobox("setValue", "1");
-            });
+                LEO.openFormWin("resourceWin", {
+                    title: "新增资源"
+                }, function () {
+                    debugger;
+                    $("#resourceType").combobox("clear");
+                    resourceForm.form("clear").form({url:"${ctx}/resource/add.do"});
+                    $("#resourceLink").parent().hide();
+                    var row = resourceGrid.treegrid("getSelected");
+                    if (row) {
+                        $("#resourcePid").val(row.id);
+                    } else {
+                        $("#resourcePid").val(0);
+                    }
+                    $("#enable").combobox("setValue", "1");
+                });
+            }else{
+                LEO.messager("请选择父节点！");
+            }
+
         });
         $("#editBtn").on("click", function () {
             var row = resourceGrid.datagrid("getSelected");
             if (row) {
-                resourceForm.form("load", row);
+                resourceForm.form("load", row).form({url:"${ctx}/resource/edit.do"});
                 $("#username").textbox({editable: false});
                 $("#password").textbox("setValue", "");
                 $("#password1").textbox("setValue", "");

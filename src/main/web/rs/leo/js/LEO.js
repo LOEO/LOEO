@@ -241,9 +241,8 @@ LEO.openFormWin = function (id, opt,callback ) {
     win.window("open");
 };
 
-LEO.initForm = function (id, url, callback) {
+LEO.initForm = function (id, callback) {
     return $('#' + id).form({
-        url: url,
         onSubmit: function () {
             $.messager.progress({
                 interval: 100,

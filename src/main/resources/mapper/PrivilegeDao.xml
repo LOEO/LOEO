@@ -37,7 +37,6 @@
             WHERE
                 p.`master` = 'role'
             AND p.masterValue = r.id
-            AND (p.access = '0' OR p.access = '1')
         )  pp ON res.id = pp.accessValue
     </select>
     <select id="getResource" resultType="SysResource">
@@ -83,7 +82,6 @@
             WHERE
                 p.`master` = 'user'
             AND p.masterValue = u.id
-            AND (p.access = '0' OR p.access = '1')
         )  pp ON res.id = pp.accessValue
     </select>
 

@@ -25,7 +25,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping("page")
     public String page() {
-        return "system/role/role_list";
+        return "system/role";
     }
 
     @RequestMapping("list")
@@ -35,7 +35,7 @@ public class RoleController extends BaseController {
         return this.doListByPage(params);
     }
 
-    @RequestMapping("save")
+    @RequestMapping({"add","edit"})
     @ResponseBody
     public AjaxResult save(@RequestParam Map<String, Object> formData) {
         return this.doSave(formData);

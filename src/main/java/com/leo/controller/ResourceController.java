@@ -25,7 +25,7 @@ public class ResourceController extends BaseController {
 
     @RequestMapping("page")
     public String page() {
-        return "system/resource/resource";
+        return "system/resource";
     }
 
     @RequestMapping("list")
@@ -34,7 +34,7 @@ public class ResourceController extends BaseController {
         return resourceService.getResourceTree();
     }
 
-    @RequestMapping("save")
+    @RequestMapping({"add","edit"})
     @ResponseBody
     public AjaxResult save(@RequestParam Map<String,Object> formData) {
         return this.doSave(formData);

@@ -80,7 +80,7 @@
             });
         });
 
-        var roleForm = LEO.initForm("roleForm", "${ctx}/role/save.do", function (result) {
+        var roleForm = LEO.initForm("roleForm", function (result) {
             if (result.state===LEO.SUCCESS) {
                 $('#roleWin').window('close');
                 roleGrid.datagrid("reload");
@@ -92,14 +92,14 @@
             LEO.openFormWin("roleWin", {
                 title: "新增用户"
             }, function () {
-                roleForm.form("clear");
+                roleForm.form("clear").form({url:"${ctx}/role/add.do"});
                 $("#enable").combobox("setValue", "1");
             });
         });
         $("#editBtn").on("click", function () {
             var row = roleGrid.datagrid("getSelected");
             if (row) {
-                roleForm.form("load", row);
+                roleForm.form("load", row).form({url:"${ctx}/role/edit.do"});
                 $("#username").textbox({editable: false});
                 $("#password").textbox("setValue", "");
                 $("#password1").textbox("setValue", "");

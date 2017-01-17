@@ -31,7 +31,7 @@ public class UserController extends BaseController {
 
     @RequestMapping("page")
     public String userList(ModelMap modelMap) {
-        return "system/user/user_list";
+        return "system/user";
     }
 
     @RequestMapping("register")
@@ -46,7 +46,7 @@ public class UserController extends BaseController {
         return userService.getByPage(params);
     }
 
-    @RequestMapping("save")
+    @RequestMapping({"add","edit"})
     @ResponseBody
     public AjaxResult save(@RequestParam Map<String, Object> formData) {
         return this.doSave(formData);

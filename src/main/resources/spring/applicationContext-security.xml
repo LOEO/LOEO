@@ -14,7 +14,7 @@
             <hsts disabled="true"/>
         </headers>
         <!--自定义filter来处理权限-->
-        <custom-filter ref="filterSecurityInterceptor"  after="FILTER_SECURITY_INTERCEPTOR" />
+        <custom-filter ref="filterSecurityInterceptor"  before="FILTER_SECURITY_INTERCEPTOR" />
         <intercept-url pattern="/rs/**" access="permitAll"/>
         <intercept-url pattern="/pages/login.jsp" access="permitAll"/>
         <intercept-url pattern="/**" access="hasRole('USER')"/>
@@ -24,7 +24,7 @@
                     authentication-failure-url="/pages/login.jsp?e"
         />
         <csrf disabled="true"/>
-        <access-denied-handler error-page="/pages/error.jsp"/>
+        <access-denied-handler ref="accessDeniedHandler"/>
         <session-management invalid-session-url="/pages/timeout.jsp">
             <concurrency-control expired-url="/pages/timeout.jsp" />
         </session-management>
@@ -55,7 +55,7 @@
         <beans:property name="accessDecisionManager" ref="customAccessDecisionManager"/>
     </beans:bean>
 
-    <beans:bean id="customSecurityMetadataSource" class="com.leo.common.security.CustomSecurityMetadataSource" init-method="initResources"/>
+    <beans:bean id="customSecurityMetadataSource" class="com.leo.common.security.CustomSecurityMetadataSource" init-method="initResources" depends-on="privilegeService"/>
 
     <beans:bean id="customAccessDecisionManager" class="com.leo.common.security.CustomAccessDecisionManager"/>
 
@@ -76,6 +76,8 @@
             AND p.`master` = 'role' and link is not null
         "/>
     </beans:bean>
-
-    <beans:bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl"/>
+    <!--没有权限处理-->
+    <beans:bean id="accessDeniedHandler" class="com.leo.common.security.CustomAccessDeniedHandler">
+        <beans:property name="errorPage" value="/pages/accessDenied.jsp"/>
+    </beans:bean>
 </beans:beans>

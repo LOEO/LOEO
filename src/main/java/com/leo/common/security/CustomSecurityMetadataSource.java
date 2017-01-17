@@ -15,10 +15,12 @@ import java.util.*;
  * Created by LT on 2016/11/03 23:52
  */
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+    private static final String DEFAULT_SECURITY = "NO_OWNER";
     private Map<String, Collection<ConfigAttribute>> resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
     private PrivilegeService privilegeService;
 
     public void initResources() {
+        resourceMap.clear();
         List<ResourceOwnerPair> resourceOwnerPairs = privilegeService.getRoleResourceOwnerPair();
         addResource(resourceOwnerPairs, "ROLE_");
         resourceOwnerPairs = privilegeService.getUserResourceOwnerPair();
@@ -28,7 +30,11 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     private void addResource(List<ResourceOwnerPair> resourceOwnerPairs, String ownerPrefix) {
         for (ResourceOwnerPair resourceOwnerPair : resourceOwnerPairs) {
             Collection<ConfigAttribute> configAttributes = this.resourceMap.get(resourceOwnerPair.getLink());
-            if (StringUtils.isEmpty(resourceOwnerPair.getLink()) || resourceOwnerPair.getOwner() == null) continue;
+            if (StringUtils.isEmpty(resourceOwnerPair.getLink())) continue;
+            //如果资源没设置任何权限 owner 设置为默认值
+            if (resourceOwnerPair.getOwner() == null) {
+                resourceOwnerPair.setOwner(DEFAULT_SECURITY);
+            }
             SecurityConfig securityConfig = new SecurityConfig(ownerPrefix + resourceOwnerPair.getOwner());
             if (configAttributes == null) {
                 configAttributes = new ArrayList<ConfigAttribute>();
