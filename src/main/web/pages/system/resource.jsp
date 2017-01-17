@@ -147,30 +147,25 @@
         });
         $("#addBtn").on("click", function () {
             var row = resourceGrid.datagrid("getSelected");
-            if(row){
-                if(row.type==="2"){
-                    LEO.messager("按钮下不能添加子节点！");
-                    return;
-                }
-                LEO.openFormWin("resourceWin", {
-                    title: "新增资源"
-                }, function () {
-                    debugger;
-                    $("#resourceType").combobox("clear");
-                    resourceForm.form("clear").form({url:"${ctx}/resource/add.do"});
-                    $("#resourceLink").parent().hide();
-                    var row = resourceGrid.treegrid("getSelected");
-                    if (row) {
-                        $("#resourcePid").val(row.id);
-                    } else {
-                        $("#resourcePid").val(0);
-                    }
-                    $("#enable").combobox("setValue", "1");
-                });
-            }else{
-                LEO.messager("请选择父节点！");
+            if(row && row.type==="2"){
+                LEO.messager("按钮下不能添加子节点！");
+                return;
             }
-
+            LEO.openFormWin("resourceWin", {
+                title: "新增资源"
+            }, function () {
+                debugger;
+                $("#resourceType").combobox("clear");
+                resourceForm.form("clear").form({url:"${ctx}/resource/add.do"});
+                $("#resourceLink").parent().hide();
+                var row = resourceGrid.treegrid("getSelected");
+                if (row) {
+                    $("#resourcePid").val(row.id);
+                } else {
+                    $("#resourcePid").val(0);
+                }
+                $("#enable").combobox("setValue", "1");
+            });
         });
         $("#editBtn").on("click", function () {
             var row = resourceGrid.datagrid("getSelected");

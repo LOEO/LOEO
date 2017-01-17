@@ -25,7 +25,7 @@ public class PrivilegeController extends BaseController {
 
     @RequestMapping("page")
     public String page() {
-        return "system/privilege/privilege";
+        return "system/privilege";
     }
 
     @RequestMapping("save")
