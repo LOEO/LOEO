@@ -37,7 +37,7 @@
     </bean>
 
     <!-- 配置扫描DAO接口包-->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean id="mybatisScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <property name="basePackage" value="com.leo.dao"/>
     </bean>

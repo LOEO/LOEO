@@ -55,7 +55,7 @@
         <beans:property name="accessDecisionManager" ref="customAccessDecisionManager"/>
     </beans:bean>
 
-    <beans:bean id="customSecurityMetadataSource" class="com.leo.common.security.CustomSecurityMetadataSource" init-method="initResources" depends-on="privilegeService"/>
+    <beans:bean id="customSecurityMetadataSource" class="com.leo.common.security.CustomSecurityMetadataSource" init-method="initResources" depends-on="mybatisScanner"/>
 
     <beans:bean id="customAccessDecisionManager" class="com.leo.common.security.CustomAccessDecisionManager"/>
 
