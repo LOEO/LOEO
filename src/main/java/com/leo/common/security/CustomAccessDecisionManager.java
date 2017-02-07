@@ -19,12 +19,12 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
         if (configAttributes != null) {
             for (ConfigAttribute configAttribute : configAttributes) {
                 //判断用户是否拥有权限
-                if(configAttribute.getAttribute().equals(userPrivilegeCode)){
+                if (configAttribute.getAttribute().equals(userPrivilegeCode)) {
                     return;
                 }
                 //判断用户的角色是否拥有权限
                 for (GrantedAuthority authority : authentication.getAuthorities()) {
-                    if (("ROLE_"+authority.getAuthority()).equals(configAttribute.getAttribute())) {
+                    if (("ROLE_" + authority.getAuthority()).equals(configAttribute.getAttribute())) {
                         return;
                     }
                 }

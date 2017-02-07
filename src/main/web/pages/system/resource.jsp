@@ -14,9 +14,9 @@
     </table>
     <div id="toolbar" class="tool-bar">
         <span class="tool-btn">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="addBtn">新增</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="editBtn">修改</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="delBtn">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="addBtn" code="resource_add">新增</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="editBtn" code="resource_update">修改</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="delBtn" code="resource_delete">删除</a>
         </span>
         <span class="search-box">
             <input type="text" class="easyui-textbox" id="s_name"
@@ -51,7 +51,7 @@
                        style="width:94%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="script" class="easyui-textbox" label="脚本:"
+                <input name="code" class="easyui-textbox" label="脚本:"
                        style="width:94%">
             </div>
             <div style="margin-bottom:10px">
@@ -84,6 +84,7 @@
             idField: 'id',
             treeField: 'name',
             useCustomIcon:true,
+            checkbox:false,
             columns: [[
                 {field: 'id', title: 'id', hidden: true, align: 'center'},
                 {field: 'name', title: '资源名', align: 'center'},
@@ -99,7 +100,7 @@
                 {field: 'iconCls', title: '图标', align: 'center', width: 60,formatter:function(value) {
                     return '<i class="'+value+'"></i>';
                 }},
-                {field: 'script', title: '脚本', align: 'center', width: 60},
+                {field: 'code', title: '代码', align: 'center', width: 60},
                 {field: 'orde', title: '排序', align: 'center', width: 60},
                 {field: 'isLeaf', title: '叶子节点', align: 'center', width: 60},
                 {

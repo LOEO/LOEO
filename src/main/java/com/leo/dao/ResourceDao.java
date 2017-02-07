@@ -1,6 +1,7 @@
 package com.leo.dao;
 
 import com.leo.entity.SysResource;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -16,4 +17,6 @@ public interface ResourceDao extends BaseDao<SysResource>{
     List<SysResource> getUserMenuList(Integer userId);
 
     List<SysResource> getResource(Integer id, String type);
+
+    List<SysResource> getAuthorisedButtonsByMenuId(@Param("menuId") Integer menuId, @Param("userId")Integer userId);
 }

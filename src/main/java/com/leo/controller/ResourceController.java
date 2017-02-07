@@ -53,8 +53,11 @@ public class ResourceController extends BaseController {
         return resourceService.getUserMenuList(SpringSecurityUtils.getCurrentUserId());
     }
 
-
-
+    @RequestMapping("getAuthorisedButtons")
+    @ResponseBody
+    public List<SysResource> getAuthorisedButtonsByMenuId(Integer menuId) {
+        return resourceService.getAuthorisedButtonsByMenuId(menuId, SpringSecurityUtils.getCurrentUserId());
+    }
 
     @Override
     protected BaseService getBaseService() {

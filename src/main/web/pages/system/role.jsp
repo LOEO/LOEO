@@ -15,9 +15,9 @@
     <div id="toolbar" class="tool-bar">
 
         <span class="tool-btn">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="addBtn">新增</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="editBtn">修改</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="delBtn">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="addBtn" code="role_add">新增</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="editBtn" code="role_update">修改</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="delBtn" code="role_delete">删除</a>
         </span>
         <span class="search-box">
             <input type="text" class="easyui-textbox" id="s_name"

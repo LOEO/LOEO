@@ -284,6 +284,7 @@
 
             $(".leo_menu").on("click", function () {
                 debugger;
+                var menuId = this.id.replace("menu_", "");
                 $(".leo_menu").each(function () {
                     $(this).parent().removeClass("active");
                 });
@@ -293,7 +294,15 @@
                 $(".window-mask").remove();
 
                 $("#main-content").load($(this).data("url"),function() {
-                    Pace.stop();
+                    $.get("${ctx}/resource/getAuthorisedButtons.do?menuId="+menuId,function(data) {
+                        if(data.length!=0) {
+                            $(".sys-button").hide().css("visibility", "visible");
+                        }
+                        $.each(data, function (i, o) {
+                            $(".sys-button[code=" + o.code + "]").show();
+                            Pace.stop();
+                        });
+                    });
                 });
                 /*Pace.start();
                  $mainFrame.attr("src", $(this).data("url"));*/

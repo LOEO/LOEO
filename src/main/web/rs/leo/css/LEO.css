@@ -10,3 +10,7 @@ body{
 .content{
     padding:0;
 }
+
+.sys-button {
+    visibility: hidden;
+}

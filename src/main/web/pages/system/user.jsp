@@ -7,6 +7,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script src="${ctx}/rs/jquery-easyui-1.5/src/jquery.parser.js"></script>
 <style type="text/css">
     .datagrid-body > table{
@@ -17,12 +18,11 @@
     <table id="userGrid" class="easyui-datagrid" toolbar="#toolbar">
     </table>
     <div id="toolbar" class="tool-bar">
-
         <span class="tool-btn">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="addBtn">新增</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="editBtn">修改</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="delBtn">删除</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-man" plain="true" id="setRoleBtn">设置角色</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-add" plain="true" id="addBtn" code="user_add">新增</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-edit" plain="true" id="editBtn" code="user_update">修改</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-remove" plain="true" id="delBtn" code="user_delete">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-man" plain="true" id="setRoleBtn" code="user_set_role">设置角色</a>
         </span>
         <span class="search-box">
             <input type="text" class="easyui-textbox" id="s_username"

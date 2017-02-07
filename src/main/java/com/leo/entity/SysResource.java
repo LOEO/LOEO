@@ -10,7 +10,7 @@ public class SysResource extends BaseEntity {
     private Integer pid;
     private String descp;
     private String iconCls;
-    private String script;
+    private String code;
     private Byte enable;
     private Byte isLeaf;
     private Integer orde;
@@ -80,12 +80,12 @@ public class SysResource extends BaseEntity {
         this.iconCls = iconCls;
     }
 
-    public String getScript() {
-        return script;
+    public String getCode() {
+        return code;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Byte getEnable() {

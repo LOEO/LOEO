@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/security/spring-security.xsd
         ">
     <debug/>
-    <http>
+    <http access-decision-manager-ref="customAccessDecisionManager">
         <headers>
             <frame-options policy="SAMEORIGIN"/>
             <hsts disabled="true"/>
@@ -55,18 +55,19 @@
         <beans:property name="accessDecisionManager" ref="customAccessDecisionManager"/>
     </beans:bean>
 
-    <!--加载权限资源-->
     <beans:bean id="customSecurityMetadataSource" class="com.leo.common.security.CustomSecurityMetadataSource" init-method="initResources" depends-on="mybatisScanner"/>
-    <!--权限判断-->
-    <beans:bean id="customAccessDecisionManager" class="com.leo.common.security.CustomAccessDecisionManager"></beans:bean>
 
-<!--    <beans:bean id="defaultAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+    <beans:bean id="customAccessDecisionManager" class="com.leo.common.security.CustomAccessDecisionManager">
+        <beans:property name="defaultAccessDecisionManager" ref="defaultAccessDecisionManager"/>
+    </beans:bean>
+
+    <beans:bean id="defaultAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
         <beans:constructor-arg name="decisionVoters">
             <beans:list>
                 <beans:bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
             </beans:list>
         </beans:constructor-arg>
-    </beans:bean>-->
+    </beans:bean>
 
     <beans:bean id="filterInvocationSecurityMetadataSource"
                 class="com.leo.common.security.JdbcFilterInvocationDefinitionSourceFactoryBean">

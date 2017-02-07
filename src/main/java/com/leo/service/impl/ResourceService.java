@@ -25,6 +25,10 @@ public class ResourceService extends AbsService<SysResource> {
         return convertResourceTree(sysResource, 0);
     }
 
+    public List<SysResource> getAuthorisedButtonsByMenuId(Integer menuId,Integer userId) {
+        return resourceDao.getAuthorisedButtonsByMenuId(menuId, userId);
+    }
+
     public List<SysResourceTreeNode> convertResourceTree(List<SysResource> resources,Integer id) {
         List<SysResourceTreeNode> children = new ArrayList<SysResourceTreeNode>();
         for (SysResource resource : resources) {
