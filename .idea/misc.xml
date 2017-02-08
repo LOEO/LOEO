@@ -42,12 +42,16 @@
     <entry_points version="2.0" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$" />
+    <file type="web" url="file://$PROJECT_DIR$/WEB" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/WEB/pom.xml" />
+        <option value="$PROJECT_DIR$/COMMON/pom.xml" />
+        <option value="$PROJECT_DIR$/PARENT/pom.xml" />
+        <option value="$PROJECT_DIR$/INTERFACE/pom.xml" />
+        <option value="$PROJECT_DIR$/SERVICE/pom.xml" />
       </list>
     </option>
   </component>
@@ -62,6 +66,6 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/classes" />
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

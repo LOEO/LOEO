@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/leo.iml" filepath="$PROJECT_DIR$/leo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/COMMON/COMMON.iml" filepath="$PROJECT_DIR$/COMMON/COMMON.iml" />
+      <module fileurl="file://$PROJECT_DIR$/INTERFACE/INTERFACE.iml" filepath="$PROJECT_DIR$/INTERFACE/INTERFACE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PARENT/PARENT.iml" filepath="$PROJECT_DIR$/PARENT/PARENT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SERVICE/SERVICE.iml" filepath="$PROJECT_DIR$/SERVICE/SERVICE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WEB/WEB.iml" filepath="$PROJECT_DIR$/WEB/WEB.iml" />
     </modules>
   </component>
 </project>
