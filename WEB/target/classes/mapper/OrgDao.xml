@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.dao.OrgDao">
+    <insert id="addOrg"></insert>
+    <update id="updateOrg"></update>
+    <delete id="deleteOrg"></delete>
+    <delete id="deleteOrgById"></delete>
+
+    <select id="getOrgList" resultType="com.loeo.entity.SysOrg"></select>
+    <select id="getOrgById" resultType="com.loeo.entity.SysOrg"></select>
+</mapper>
