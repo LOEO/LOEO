@@ -4,6 +4,7 @@ import com.loeo.dao.BaseDao;
 import com.loeo.dao.RoleDao;
 import com.loeo.entity.SysRole;
 import com.loeo.service.AbsService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class RoleService extends AbsService<SysRole> {
     private RoleDao roleDao;
 
+    //@Cacheable(value = "webCache")
     public List<SysRole> getUserHasRoles(Integer userId) {
         return roleDao.getUserHasRoles(userId);
     }

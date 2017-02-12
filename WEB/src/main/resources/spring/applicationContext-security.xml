@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security.xsd
         ">
-    <debug/>
+    <!--<debug/>-->
     <http>
         <headers>
             <frame-options policy="SAMEORIGIN"/>

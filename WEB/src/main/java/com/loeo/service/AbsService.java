@@ -5,6 +5,7 @@ import com.loeo.common.security.SpringSecurityUtils;
 import com.loeo.dao.BaseDao;
 import com.loeo.entity.BaseEntity;
 import com.loeo.util.EntityUtil;
+import org.springframework.cache.annotation.CacheEvict;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
