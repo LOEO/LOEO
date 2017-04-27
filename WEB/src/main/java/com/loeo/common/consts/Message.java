@@ -14,4 +14,5 @@ public final class Message {
     public static final String PASSWORD_ERROR = "密码错误！";
     public static final String USERNAME_OR_PASSWORD_ERROR = "用户名或密码错误！";
     public static final String AUTHENTICATED_FAILED = "认证失败！";
+    public static final String NOT_A_LEAF_CAN_NOT_DELETED = "非叶子节点不能删除";
 }

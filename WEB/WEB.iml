@@ -42,6 +42,7 @@
           <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-mybatis.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-security.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-test.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-scheduler.xml</file>
         </fileset>
       </configuration>
     </facet>
