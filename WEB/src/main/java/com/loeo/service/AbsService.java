@@ -5,7 +5,9 @@ import com.loeo.common.security.SpringSecurityUtils;
 import com.loeo.dao.BaseDao;
 import com.loeo.entity.BaseEntity;
 import com.loeo.util.EntityUtil;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
@@ -14,6 +16,7 @@ import java.util.Map;
 /**
  * Created by LT on 2016/09/23 20:29
  */
+@Transactional
 public abstract class AbsService<T extends BaseEntity> implements BaseService<T> {
     protected Class<T> entityClass;
 
@@ -25,6 +28,7 @@ public abstract class AbsService<T extends BaseEntity> implements BaseService<T>
         return getBaseDao().getById(id);
     }
 
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, propagation = Propagation.NOT_SUPPORTED)
     public void save(Map<String,Object> formData) {
         T t = EntityUtil.buildEntity(entityClass, formData);
         save(t);

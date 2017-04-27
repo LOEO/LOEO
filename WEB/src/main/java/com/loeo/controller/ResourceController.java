@@ -37,7 +37,7 @@ public class ResourceController extends BaseController {
     @RequestMapping({"add","edit"})
     @ResponseBody
     public AjaxResult save(@RequestParam Map<String,Object> formData) {
-        return this.doSave(formData);
+        return super.doSave(formData);
     }
 
     @RequestMapping("delete")

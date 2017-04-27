@@ -4,8 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loeo.dao.UserDao">
     <insert id="insert" parameterType="SysUser" useGeneratedKeys="true" keyProperty="id">
-        insert ignore into t_sys_user(username,password,nickname,birthday,sex,avatar,email,phone,createUser,createDt,updateUser,updateDt,enable)
-        values (#{username},#{password},#{nickname},#{birthday},#{sex},#{avatar},#{email},#{phone},#{createUser},#{createDt},#{updateUser},#{updateDt},#{enable})
+        insert ignore into
+        t_sys_user(username,password,nickname,birthday,sex,avatar,email,phone,createUser,createDt,updateUser,updateDt,enable,orgId)
+        values
+        (#{username},#{password},#{nickname},#{birthday},#{sex},#{avatar},#{email},#{phone},#{createUser},#{createDt},#{updateUser},#{updateDt},#{enable},#{orgId})
     </insert>
     <insert id="saveUserRole">
         insert into t_sys_user_role (userId, roleId) VALUES
@@ -15,15 +17,35 @@
     </insert>
     <update id="update" parameterType="SysUser">
         update t_sys_user
-           set password=#{password},
+        set
+        <if test="password != null">
+            password=#{password},
+        </if>
+        <if test="nickname != null">
                 nickname=#{nickname},
+        </if>
+        <if test="birthday != null">
                 birthday=#{birthday},
+        </if>
+        <if test="sex != null">
                 sex=#{sex},
+        </if>
+        <if test="avatar != null">
                 avatar=#{avatar},
+        </if>
+        <if test="email != null">
                 email=#{email},
+        </if>
+        <if test="phone != null">
                 phone=#{phone},
+        </if>
+        <if test="updateUser != null">
                 updateUser=#{updateUser},
-                updateDt=#{updateDt}
+        </if>
+        <if test="updateDt != null">
+            updateDt=#{updateDt},
+        </if>
+        id=id
         where id=#{id}
     </update>
     <delete id="deleteById">

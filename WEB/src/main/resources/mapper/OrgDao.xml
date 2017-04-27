@@ -3,11 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loeo.dao.OrgDao">
-    <insert id="addOrg"></insert>
-    <update id="updateOrg"></update>
-    <delete id="deleteOrg"></delete>
+    <insert id="insert">
+        insert into t_sys_org (name,pid,descp,leaf,createUser,createDt,updateUser,updateDt)
+        values (#{name},#{pid},#{descp},#{leaf},#{createUser},#{createDt},#{updateUser},#{updateDt})
+    </insert>
+    <update id="update">
+        update t_sys_org set
+        name=#{name},
+        pid=#{pid},
+        descp=#{descp},
+        <if test="leaf !=null">
+            leaf=#{leaf},
+        </if>
+        updateUser=#{updateUser},
+        updateDt=#{updateDt}
+        where id=#{id}
+    </update>
+    <update id="updateLeafById">
+        update t_sys_org set leaf=#{leaf} where id=#{id}
+    </update>
+    <delete id="deleteById">
+        delete from t_sys_org where id=#{id}
+    </delete>
     <delete id="deleteOrgById"></delete>
 
-    <select id="getOrgList" resultType="com.loeo.entity.SysOrg"></select>
-    <select id="getOrgById" resultType="com.loeo.entity.SysOrg"></select>
+    <select id="getOrgList" resultType="com.loeo.entity.SysOrg">
+        select * from t_sys_org
+        <where>
+            <if test="pid!=null">
+                pid=#{pid}
+            </if>
+        </where>
+    </select>
+    <select id="getById" resultType="com.loeo.entity.SysOrg">
+        select * from t_sys_org where id=#{id}
+    </select>
 </mapper>

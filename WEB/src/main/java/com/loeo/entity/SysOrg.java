@@ -1,31 +1,16 @@
 package com.loeo.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by LT on 2015/11/4 0004.
  */
 
-public class SysOrg implements Serializable {
-
-    private int id;
+public class SysOrg extends BaseEntity implements Serializable {
     private String name;
     private Integer pid;
     private String descp;
     private String leaf;
-    private Integer createUser;
-    private Date createDt;
-    private Integer updateUser;
-    private Date updateDt;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -59,37 +44,6 @@ public class SysOrg implements Serializable {
         this.leaf = leaf;
     }
 
-    public Integer getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Integer createUser) {
-        this.createUser = createUser;
-    }
-
-    public Date getCreateDt() {
-        return createDt;
-    }
-
-    public void setCreateDt(Date createDt) {
-        this.createDt = createDt;
-    }
-
-    public Integer getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(Integer updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public Date getUpdateDt() {
-        return updateDt;
-    }
-
-    public void setUpdateDt(Date updateDt) {
-        this.updateDt = updateDt;
-    }
 
     @Override
     public boolean equals(Object o) {

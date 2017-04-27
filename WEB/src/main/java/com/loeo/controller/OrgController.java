@@ -1,5 +1,7 @@
 package com.loeo.controller;
 
+import com.loeo.bean.AjaxResult;
+import com.loeo.entity.SysOrg;
 import com.loeo.service.BaseService;
 import com.loeo.service.impl.OrgService;
 import org.springframework.stereotype.Controller;
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,43 +18,30 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/org")
-public class OrgController extends BaseController{
+public class OrgController extends BaseController {
     private OrgService orgService;
 
     @RequestMapping("page")
     public String page() {
         return "system/org";
     }
-    @RequestMapping("save")
-    @ResponseBody
-    public Map<String,Object> save(@RequestParam Map<String,String> map){
-        Map<String,Object> resultMap = new HashMap<String, Object>();
 
-        return resultMap;
+    @RequestMapping({"add", "edit"})
+    @ResponseBody
+    public AjaxResult save(@RequestParam Map<String, Object> params) {
+        return super.doSave(params);
     }
 
-    @RequestMapping("list")
+    @RequestMapping("loadTree")
     @ResponseBody
-    public Map<String,Object> list(@RequestParam("node") int pid){
-        Map<String,Object> result = new HashMap<String,Object>();
-
-        return result;
-    }
-
-    @RequestMapping("org_edit")
-    @ResponseBody
-    public Map<String,Object> edit(int id,String name,String descp) {
-        Map<String, Object> result = new HashMap<String, Object>();
-
-        return result;
+    public List<SysOrg> list() {
+        return orgService.getOrgList();
     }
 
     @RequestMapping("delete")
     @ResponseBody
-    public Map<String,Object> delete(int id,int pid){
-        Map<String,Object> result = new HashMap<String,Object>();
-
-        return result;
+    public AjaxResult delete(Integer id) {
+        return super.doDeleteById(id);
     }
 
     @Resource
@@ -62,6 +51,6 @@ public class OrgController extends BaseController{
 
     @Override
     protected BaseService getBaseService() {
-        return null;
+        return orgService;
     }
 }

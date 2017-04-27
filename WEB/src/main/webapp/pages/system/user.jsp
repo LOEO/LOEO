@@ -69,6 +69,10 @@
                        style="width:94%">
             </div>
             <div style="margin-bottom:10px">
+                <input id="orgId" name="orgId" class="easyui-combotree" label="组织:"
+                       style="width:94%">
+            </div>
+            <div style="margin-bottom:10px">
                 <input id='enable' name="enable" class="easyui-combobox" required="true" label="状态:" panelHeight="auto"
                        style="width:94%"
                        data-options="value:1,editable:false,valueField: 'id',textField: 'text',data:[{id:'1',text:'启用'},{id:'0',text:'禁用'}]"
@@ -162,6 +166,27 @@
                     valueField:"id",
                     fitColumn:true
                 });
+        $("#orgId").combotree({
+            textField: "name",
+            valueField: "id",
+            url: "${ctx}/org/loadTree.do?root=0",
+            lines: true,
+            onSelect: function (record) {
+                //必须有text属性，才能被选中
+                record.text = record.name;
+            },
+            loadFilter: function (data, parent) {
+                debugger;
+                var root = {
+                    id: 0,
+                    name: "组织架构",
+                    children: LOEO.buildTreeData(data, 0)
+                };
+                return [root];
+            }, formatter: function (node) {
+                return node.name;
+            }
+        });
 
         $("#addBtn").on("click", function () {
             LOEO.openFormWin("userWin", {
@@ -172,6 +197,7 @@
                 $("#enable").combobox("setValue", "1");
             });
         });
+
         $("#editBtn").on("click", function () {
             var row = userGrid.datagrid("getSelected");
             if (row) {

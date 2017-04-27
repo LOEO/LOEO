@@ -32,19 +32,19 @@ public class RoleController extends BaseController {
     @ResponseBody
     @JsonView(SysRole.WithoutSysUsers.class)
     public Page list(@RequestParam Map<String, Object> params) {
-        return this.doListByPage(params);
+        return super.doListByPage(params);
     }
 
     @RequestMapping({"add","edit"})
     @ResponseBody
     public AjaxResult save(@RequestParam Map<String, Object> formData) {
-        return this.doSave(formData);
+        return super.doSave(formData);
     }
 
     @RequestMapping("delete")
     @ResponseBody
     public AjaxResult delete(int id) {
-        return this.doDeleteById(id);
+        return super.doDeleteById(id);
     }
 
     @RequestMapping("getUserHasRoles")

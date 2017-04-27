@@ -11,6 +11,7 @@ import com.loeo.entity.SysPrivilege;
 import com.loeo.entity.SysResource;
 import com.loeo.service.AbsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -79,6 +80,7 @@ public class PrivilegeService extends AbsService<SysPrivilege> {
         return sysPrivileges;
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<ResourceOwnerPair> getRoleResourceOwnerPair() {
         return privilegeDao.getRoleResourceOwnerPair();
     }

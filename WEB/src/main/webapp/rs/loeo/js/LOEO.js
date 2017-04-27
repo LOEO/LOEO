@@ -330,6 +330,20 @@ LOEO.treeGrid=function(id,options){
   }));
 };
 
+LOEO.buildTreeData = function (data, pid) {
+    var i = 0, len = data.length, node, nodes = [];
+    for (; i < len; i++) {
+        node = data[i];
+        if (node.pid === pid) {
+            if (node.leaf === "false") {
+                node.children = LOEO.buildTreeData(data, node.id);
+            }
+            nodes.push(node);
+        }
+    }
+    return nodes;
+}
+
 /*
 (function ($) {
     var cache= $.ajax;

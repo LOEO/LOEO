@@ -25,6 +25,7 @@
 <script src="${ctx}/rs/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="${ctx}/rs/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
 <script src="${ctx}/rs/jquery-easyui-1.5/jquery.easyui.min.js"></script>
+<%--<script src="${ctx}/rs/jquery-easyui-1.5/themes/insdep/jquery.insdep-extend.min.js"></script>--%>
 <script src="${ctx}/rs/loeo/js/Common.js"></script>
 <script src="${ctx}/rs/loeo/js/easyui_ext.js"></script>
 <script src="${ctx}/rs/loeo/js/LOEO.js"></script>

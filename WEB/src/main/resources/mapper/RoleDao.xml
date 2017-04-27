@@ -13,8 +13,6 @@
             name=#{name},
             code=#{code},
             descp=#{descp},
-            createUser=#{createUser},
-            createDt=#{createDt},
             updateUser=#{updateUser},
             updateDt=#{updateDt},
             enable=#{enable}

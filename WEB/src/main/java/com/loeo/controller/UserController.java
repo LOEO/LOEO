@@ -49,13 +49,13 @@ public class UserController extends BaseController {
     @RequestMapping({"add","edit"})
     @ResponseBody
     public AjaxResult save(@RequestParam Map<String, Object> formData) {
-        return this.doSave(formData);
+        return super.doSave(formData);
     }
 
     @RequestMapping("delete")
     @ResponseBody
     public AjaxResult userDelete(@RequestParam("id") int id) {
-        return this.doDeleteById(id);
+        return super.doDeleteById(id);
     }
 
     @RequestMapping("saveUserRole")

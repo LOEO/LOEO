@@ -1,7 +1,11 @@
 package com.loeo.service.impl;
 
+import com.loeo.common.consts.Message;
+import com.loeo.dao.BaseDao;
 import com.loeo.dao.OrgDao;
 import com.loeo.entity.SysOrg;
+import com.loeo.exception.BaseException;
+import com.loeo.service.AbsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,40 +17,39 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class OrgService {
+public class OrgService extends AbsService<SysOrg> {
     private OrgDao orgDao;
 
-    public List<SysOrg> getOrgList(int pid) {
-        return orgDao.getOrgList(pid);
+    public List<SysOrg> getOrgList() {
+        return orgDao.getOrgList();
     }
 
-    public boolean addOrg(SysOrg sysOrg) {
-        if(sysOrg.getPid()!=0){
-            SysOrg parent = orgDao.getOrgById(sysOrg.getPid());
-            parent.setLeaf("false");
+    @Override
+    protected boolean beforeInsert(SysOrg sysOrg) {
+        SysOrg parent = orgDao.getById(sysOrg.getPid());
+        if (parent.getLeaf().equals("true")) {
+            orgDao.updateLeafById(parent.getId(), "false");
         }
-        return orgDao.addOrg(sysOrg);
-    }
-
-    public boolean updateOrg(int id,String name,String descp) {
-        SysOrg sysOrg = orgDao.getOrgById(id);
-        sysOrg.setName(name);
-        sysOrg.setDescp(descp);
-        return orgDao.updateOrg(sysOrg);
-    }
-
-    public boolean deleteOrg(int id,int pid) {
-        orgDao.deleteOrgById(id);
-        List<SysOrg> orgs = orgDao.getOrgList(pid);
-        if(orgs == null || orgs.size() == 0){
-            SysOrg sysOrg = orgDao.getOrgById(pid);
-            sysOrg.setLeaf("true");
-        }
+        sysOrg.setLeaf("true");
         return true;
     }
 
-    public OrgDao getOrgDao() {
-        return orgDao;
+    @Override
+    protected boolean beforeUpdate(SysOrg sysOrg) {
+        return super.beforeUpdate(sysOrg);
+    }
+
+    @Override
+    protected boolean beforeDelete(Integer id) {
+        SysOrg sysOrg = orgDao.getById(id);
+        if (sysOrg.getLeaf().equals("false")) {
+            throw new BaseException(Message.NOT_A_LEAF_CAN_NOT_DELETED);
+        }
+        List<SysOrg> orgs = orgDao.getOrgList(sysOrg.getPid());
+        if (orgs.size() == 1) {
+            orgDao.updateLeafById(sysOrg.getPid(), "true");
+        }
+        return true;
     }
 
     @Resource
@@ -54,4 +57,8 @@ public class OrgService {
         this.orgDao = orgDao;
     }
 
+    @Override
+    public BaseDao<SysOrg> getBaseDao() {
+        return orgDao;
+    }
 }
